@@ -1,32 +1,46 @@
-# inctasoft.github.io — Company Website
+# inctasoft.github.io — Company Website + Blog
 
-Static landing page for **inctasoft.com**, hosted on GitHub Pages.
+Landing page + Hugo blog for **inctasoft.com**, hosted on GitHub Pages.
 
-**Live at:** `https://inctasoft.com` (GitHub Pages with custom domain)
+**Live at:** `https://inctasoft.com` (landing) and `https://inctasoft.com/blog/` (blog)
 
 ## Architecture
 
-Single-file static site — no build step, no framework, no dependencies.
+Hand-crafted landing page + Hugo-generated blog, assembled by GitHub Actions.
 
 ```
 inctasoft.github.io/
-├── index.html    ← Landing page (HTML + inline CSS, Google Fonts)
-├── CNAME         ← GitHub Pages custom domain config
-└── CLAUDE.md     ← This file
+├── index.html                     ← Landing page (hand-crafted HTML + inline CSS)
+├── CNAME                          ← GitHub Pages custom domain config
+├── hugo.toml                      ← Hugo config (baseURL = /blog/)
+├── content/posts/*.md             ← Blog posts (Markdown + frontmatter)
+├── themes/inctasoft/              ← Custom Hugo theme (matches landing page design)
+│   ├── layouts/_default/          ← baseof.html, list.html, single.html
+│   └── layouts/partials/          ← head.html, header.html, footer.html
+├── .github/workflows/hugo.yml     ← CI/CD: build Hugo + assemble + deploy
+├── .gitignore                     ← Ignores public/, resources/, .hugo_build.lock
+└── CLAUDE.md                      ← This file
 ```
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Hosting | GitHub Pages (auto-deploy on push to `main`) |
+| Hosting | GitHub Pages (deployed via GitHub Actions) |
+| Blog | Hugo (custom `inctasoft` theme) |
+| CI/CD | GitHub Actions (`hugo.yml` — builds Hugo, assembles with landing page, deploys via `actions/deploy-pages`) |
 | Domain | `inctasoft.com` (AWS Route 53 registrar + DNS) |
 | TLS | GitHub Pages auto-provisioned Let's Encrypt cert |
-| Design | Dark theme, Inter font, responsive 2-column grid |
+| Design | Dark theme (`#0a0a0a`), Inter font, `#3b82f6` accent, glassmorphism cards, animated starfield |
 
 ## Deployment
 
-Push to `main` → GitHub Pages auto-builds (usually <1 min). No CI/CD config needed — `.github.io` repos auto-enable Pages.
+Push to `main` → GitHub Actions workflow (`hugo.yml`) runs:
+1. Builds Hugo blog (`hugo --minify`) → `public/`
+2. Assembles `_site/`: copies `index.html` + `CNAME` to root, `public/*` to `blog/`
+3. Deploys via `actions/deploy-pages`
+
+Pages source must be set to **"GitHub Actions"** (not "Deploy from a branch") in repo Settings → Pages.
 
 ## DNS Configuration
 
@@ -92,3 +106,5 @@ themes/inctasoft/                  ← Custom theme
 - **CNAME file:** Must contain exactly the custom domain (`inctasoft.com`), no trailing slash. GitHub reads this to configure the custom domain.
 - **AWS Route 53:** DNS is at Route 53, NOT Cloudflare (unlike `akrsmv.net`). Root account access required to modify records.
 - **DKIM records:** 3x Amazon SES `_domainkey` CNAME records exist for email signing. These don't affect web hosting or TLS.
+- **Pages source must be "GitHub Actions".** If set to "Deploy from a branch", the old `pages-build-deployment` workflow runs and deploys only `index.html` (no `/blog/`). The Hugo workflow's `actions/deploy-pages` step will also fail. Fix: Settings → Pages → Source → GitHub Actions.
+- **Hugo version:** Installed manually at `/usr/local/bin/hugo` (v0.145.0) — Ubuntu apt repo has an older version. Use `pagination.pagerSize` (not the deprecated `paginate` key) for Hugo v0.128+.
