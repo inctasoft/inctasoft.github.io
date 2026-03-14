@@ -5,9 +5,7 @@ author: "Inctasoft"
 description: "Introducing the Inctasoft blog — where we share what we learn building AI-powered workflows and agentic engineering systems."
 ---
 
-We build AI tools for a living. Not the kind you see in pitch decks — the kind that run in production, handle real data, and break in ways that teach you something.
-
-This blog is where we share those lessons.
+18 years of shipping software across stacks and architectures. Now we build with AI — and nobody's an expert yet, because the ground shifts every few months. That's exactly why we write here: hard-won lessons from the intersection of deep engineering experience and a technology that's still being invented.
 
 <!--more-->
 
