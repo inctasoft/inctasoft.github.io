@@ -5,7 +5,7 @@ author: "Inctasoft"
 description: "Introducing the Inctasoft blog — where we share what we learn building AI-powered workflows and agentic engineering systems."
 ---
 
-18 years of shipping software across stacks and architectures. Now we build with AI — and nobody's an expert yet, because the ground shifts every few months. That's exactly why we write here: hard-won lessons from the intersection of deep engineering experience and a technology that's still being invented.
+21 years of shipping software — 18 across every stack and architecture you can name, 3 building with AI. Nobody's an expert in AI yet; the ground shifts every few months. That's exactly why we write here: hard-won lessons from the intersection of deep engineering experience and a technology that's still being invented.
 
 <!--more-->
 
