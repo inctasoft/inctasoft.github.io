@@ -1,0 +1,10 @@
+name = "Inctasoft"
+license = "MIT"
+licenselink = ""
+description = "Custom theme matching the inctasoft.com landing page"
+tags = ["blog", "dark", "minimal"]
+min_version = "0.100.0"
+
+[author]
+  name = "Inctasoft"
+  homepage = "https://inctasoft.com"

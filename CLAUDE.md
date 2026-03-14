@@ -48,19 +48,41 @@ Hosted zone ID: `Z0573802XYE3J3UOKLJ1`. These are GitHub Pages' official IPs. Th
 Landing page for Inctasoft — "a small, family-run team that lives and breathes AI."
 
 Four service cards (2x2 grid):
-1. **AI Process Enablement** — integrating AI into existing workflows
-2. **Workshops & Consulting** — hands-on training for engineering teams
-3. **Quality Assurance** — E2E tests, eval suites, guardrails for AI-generated code
+1. **Workflow Automation** — AI agents that integrate into existing stacks
+2. **Strategic Upskilling** — hands-on workshops for engineering teams
+3. **Quality Assurance** — eval suites, living documentation, regression testing
 4. **Agentic Engineering** — AI agents as true engineering collaborators
 
 Contact: `office@inctasoft.com`
 
+## Blog (`/blog/`)
+
+Hugo-powered blog at `inctasoft.com/blog/`. Custom `inctasoft` theme matches the landing page design (dark bg, Inter font, blue accent, glassmorphism cards).
+
+```
+hugo.toml                          ← Hugo config (baseURL = /blog/)
+content/posts/*.md                 ← Blog posts (Markdown + frontmatter)
+themes/inctasoft/                  ← Custom theme
+├── layouts/_default/baseof.html   ← Base template (starfield bg, nav, footer)
+├── layouts/_default/list.html     ← Blog index (glass post cards)
+├── layouts/_default/single.html   ← Single post (glass article card)
+└── layouts/partials/              ← head.html, header.html, footer.html
+```
+
+**How it works:** GitHub Actions builds Hugo → copies `public/` into `_site/blog/`, puts `index.html` + `CNAME` at root → deploys via `actions/deploy-pages`. Landing page stays hand-crafted; Hugo only owns `/blog/`.
+
+**Adding a post:** Create `content/posts/my-post.md` with frontmatter (`title`, `date`, `author`, `description`). Use `<!--more-->` to control the summary on the list page.
+
+**Local preview:** `hugo server` → `localhost:1313/blog/`
+
 ## Conventions
 
-- Single `index.html` with inline `<style>` — no external CSS files
+- Landing page: single `index.html` with inline `<style>` — no external CSS files
+- Blog: Hugo with custom theme, inline CSS in `head.html` partial
 - Google Fonts loaded via `<link>` (Inter)
-- No JavaScript
-- Keep it minimal — this is a company presence page, not a web app
+- Landing page JS: star generator + card hover interactivity
+- Blog JS: star generator only
+- Keep it minimal — this is a company presence page + blog, not a web app
 
 ## Gotchas
 

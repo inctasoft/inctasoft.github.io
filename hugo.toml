@@ -1,0 +1,18 @@
+baseURL = "https://inctasoft.com/blog/"
+languageCode = "en-us"
+title = "Inctasoft Blog"
+theme = "inctasoft"
+[pagination]
+  pagerSize = 10
+
+[params]
+  description = "Insights on agentic engineering, AI workflows, and building software that works."
+  author = "Inctasoft"
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false

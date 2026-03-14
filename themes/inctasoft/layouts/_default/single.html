@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="article-wrapper">
+  <div class="article-card">
+    <h1>{{ .Title }}</h1>
+    <div class="article-meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} · {{ . }}{{ end }}</div>
+    <div class="article-content">
+      {{ .Content }}
+    </div>
+    <a href="{{ .Site.BaseURL }}" class="back-link">&larr; Back to all posts</a>
+  </div>
+</div>
+{{ end }}

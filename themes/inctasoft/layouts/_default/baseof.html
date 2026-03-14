@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+
+<div class="page">
+  <div class="star-field" id="star-field"></div>
+
+  <div class="content">
+    {{ partial "header.html" . }}
+    {{ block "main" . }}{{ end }}
+    {{ partial "footer.html" . }}
+  </div>
+</div>
+
+<script>
+(function() {
+  var field = document.getElementById('star-field');
+  var layers = [
+    { count: 50, minSize: 0.5, maxSize: 1.5, minDur: 2, maxDur: 5, opacity: 0.8 },
+    { count: 30, minSize: 1, maxSize: 2.5, minDur: 3, maxDur: 7, opacity: 0.6 },
+    { count: 15, minSize: 0.3, maxSize: 1, minDur: 4, maxDur: 9, opacity: 0.4 }
+  ];
+  layers.forEach(function(layer) {
+    for (var i = 0; i < layer.count; i++) {
+      var s = document.createElement('div');
+      s.className = 'star star--twinkle';
+      var sz = layer.minSize + Math.random() * (layer.maxSize - layer.minSize);
+      var d = layer.minDur + Math.random() * (layer.maxDur - layer.minDur);
+      s.style.cssText =
+        'width:' + sz + 'px;height:' + sz + 'px;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'left:' + (Math.random() * 100) + '%;' +
+        'opacity:' + (layer.opacity * (0.3 + Math.random() * 0.7)) + ';' +
+        '--dur:' + d + 's;' +
+        'animation-delay:' + (Math.random() * d) + 's;';
+      field.appendChild(s);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
